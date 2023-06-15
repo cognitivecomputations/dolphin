@@ -28,6 +28,20 @@ sm_niv2 = lambda: SM[random.choice([1, 2, 5, 7, 9, 12, 13, 14, 15])]
 sm_t0 = lambda: SM[random.choice([1, 2, 3, 5, 7])]
 sm_flan2021 = lambda multiple_choice: SM[random.choice([8, 10])] if multiple_choice else SM[random.choice([3, 4, 7])]
 
+def download_dataset(dataset_name):
+    if dataset_name.lower() == "cot":
+        cot = iter(datasets.load_dataset("conceptofmind/cot_submix_original", streaming=True))
+        process_cot(cot)
+    elif dataset_name.lower() == "niv":
+        niv = iter(datasets.load_dataset("conceptofmind/niv2_submix_original", streaming=True))
+        process_niv(niv)
+    elif dataset_name.lower() == "flan":
+        flan = iter(datasets.load_dataset("conceptofmind/flan2021_submix_original", streaming=True))
+        process_flan(flan)
+    elif dataset_name.lower() == "t0":
+        t0 = iter(datasets.load_dataset("conceptofmind/t0_submix_original", split="train", streaming=True))
+        process_t0(t0)
+
 import os
 import json
 import pandas as pd
@@ -155,3 +169,20 @@ def process_t0(t0):
             stream.update(i)
             if i >= t0_total:
                 break
+
+print("Please choose a dataset to download and process:")
+print("1. COT")
+print("2. NIV")
+print("3. FLAN")
+print("4. T0")
+
+dataset_options = {
+    "1": "cot",
+    "2": "niv",
+    "3": "flan",
+    "4": "t0",
+}
+
+selected_option = input("Enter the corresponding digit: ")
+
+download_dataset(dataset_options[selected_option])
