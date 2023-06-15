@@ -69,14 +69,14 @@ def process_cot(cot):
              if data['template_type'] not in ['zs_opt', 'zs_noopt']:
                 continue
             
-            question = data['inputs']
-            system_prompt = sm_cot()
-            json.dump({"id": f"cot.{i}", "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": question}]}, f)
-            f.write("\n")
+             question = data['inputs']
+             system_prompt = sm_cot()
+             json.dump({"id": f"cot.{i}", "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": question}]}, f)
+             f.write("\n")
             
-            stream.update(i)
-            if i >= cot_total:
-                break
+             stream.update(i)
+             if i >= cot_total:
+                 break
 
 niv = iter(datasets.load_dataset(
     "conceptofmind/niv2_submix_original", streaming=True))
@@ -144,7 +144,7 @@ def process_flan(flan):
 t0_total = 2000000
 
 T0 = iter(datasets.load_dataset(
-    "conceptofmind/t0_submix_original", split=train, streaming=True))
+    "conceptofmind/t0_submix_original", split="train", streaming=True))
 
 def process_t0(t0):
     tasks = {}  
