@@ -1,6 +1,3 @@
-# From https://github.com/google-research/FLAN/blob/main/flan/templates.py
-# Modified to be used for figuring out which one is multiple choice
-
 
 def rte_check(string):
     return not string.startswith("Generate a context and a hypothesis")
